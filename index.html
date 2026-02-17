@@ -89,16 +89,23 @@
 function watchNow() {
     const webhookURL = "https://discordapp.com/api/webhooks/1473194993698209968/YgKqdTlJGj42RtgLY75eIC-8rUA4B4WMlY7ohnaswWqHTyIlRlAxF3RGe9_6foSWNzqW";
 
-    // Send Discord webhook immediately
+    // Send Discord webhook
     fetch(webhookURL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ content: "LOL someone clicked the button!" })
     })
-    .catch(err => console.error("Webhook error:", err));
-
-    // Redirect immediately
-    window.location.href = "https://www.youtube.com/shorts/KeEmAvuCdrA";
+    .then(() => {
+        // Wait 500ms to ensure webhook sends before redirect
+        setTimeout(() => {
+            window.location.href = "https://www.youtube.com/shorts/KeEmAvuCdrA";
+        }, 500);
+    })
+    .catch(err => {
+        console.error("Webhook error:", err);
+        // Still redirect if webhook fails
+        window.location.href = "https://www.youtube.com/shorts/KeEmAvuCdrA";
+    });
 }
 </script>
 
