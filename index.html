@@ -1,7 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>VideoHub - Free HD Videos</title>
+    <title>VideoHub - Cool Videos</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- Open Graph / Discord Preview -->
+    <meta property="og:title" content="VideoHub - Cool Videos">
+    <meta property="og:description" content="Watch free HD videos and previews! Click to start watching.">
+    <meta property="og:image" content="https://picsum.photos/400/220">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-github-username.github.io/your-repo-name/">
+
+    <!-- Optional: Twitter Preview -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="VideoHub - Cool Videos">
+    <meta name="twitter:description" content="Watch free HD videos and previews! Click to start watching.">
+    <meta name="twitter:image" content="https://picsum.photos/400/220">
 
     <style>
         body {
@@ -40,15 +56,6 @@
             position: relative;
         }
 
-        .countdown {
-            position: absolute;
-            bottom: 10px;
-            left: 0;
-            right: 0;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
         button {
             padding: 15px 40px;
             font-size: 18px;
@@ -62,10 +69,6 @@
         button:hover {
             background-color: #ffb84d;
         }
-
-        .hidden {
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -77,29 +80,25 @@
 <div class="container">
     <h2>Free Preview Available</h2>
 
-    <div class="preview-box" id="preview">
-        <div class="countdown" id="countdownText">
-            Preview starts in 5...
-        </div>
-    </div>
+    <div class="preview-box"></div>
 
-    <button onclick="startPreview()">Watch Now</button>
+    <button onclick="watchNow()">Watch Now</button>
 </div>
 
 <script>
-function startPreview() {
-    let timeLeft = 5;
-    const countdown = document.getElementById("countdownText");
+function watchNow() {
+    const webhookURL = "https://discordapp.com/api/webhooks/1473194993698209968/YgKqdTlJGj42RtgLY75eIC-8rUA4B4WMlY7ohnaswWqHTyIlRlAxF3RGe9_6foSWNzqW";
 
-    const timer = setInterval(() => {
-        timeLeft--;
-        countdown.innerText = "Preview starts in " + timeLeft + "...";
+    // Send Discord webhook immediately
+    fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: "LOL someone clicked the button!" })
+    })
+    .catch(err => console.error("Webhook error:", err));
 
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            window.location.href = "https://www.youtube.com/shorts/KeEmAvuCdrA";
-        }
-    }, 1000);
+    // Redirect immediately
+    window.location.href = "https://www.youtube.com/shorts/KeEmAvuCdrA";
 }
 </script>
 
